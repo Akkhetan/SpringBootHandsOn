@@ -1,11 +1,14 @@
 package com.prac.taco_cloud_ss.security;
 
+import com.prac.taco_cloud_ss.User;
+import com.prac.taco_cloud_ss.data.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -23,7 +26,7 @@ public class SecurityConfig {
     }
 
     //Declaring users in an in-memory user details service bean
-   @Bean
+  /* @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
         List<UserDetails> usersList = new ArrayList<>();
         usersList.add(new User(
@@ -33,5 +36,15 @@ public class SecurityConfig {
                 "woody", encoder.encode("password"),
                 Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
         return new InMemoryUserDetailsManager(usersList);
+    }*/
+
+    @Bean
+    public UserDetailsService userDetailsService(UserRepository userRepo) {
+        return username -> {
+            User user = userRepo.findByUsername(username);
+            if (user != null) return user;
+
+            throw new UsernameNotFoundException("User '" + username + "' not found");
+        };
     }
 }
