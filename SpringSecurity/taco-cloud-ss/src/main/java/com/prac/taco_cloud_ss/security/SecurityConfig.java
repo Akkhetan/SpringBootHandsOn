@@ -65,6 +65,9 @@ public class SecurityConfig   {
                         .loginPage("/login")
 
                 .and()
+                 .logout()
+
+                .and()
                 .build();
 
        /* http.authorizeHttpRequests(authz -> authz
