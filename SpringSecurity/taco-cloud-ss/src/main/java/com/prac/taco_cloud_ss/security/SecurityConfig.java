@@ -4,6 +4,7 @@ import com.prac.taco_cloud_ss.User;
 import com.prac.taco_cloud_ss.data.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,13 +13,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig   {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -47,4 +49,33 @@ public class SecurityConfig {
             throw new UsernameNotFoundException("User '" + username + "' not found");
         };
     }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        return http
+
+                .authorizeRequests()
+                .requestMatchers("/design", "/orders").access("hasRole('USER')")
+                .requestMatchers("/", "/**").access("permitAll()")
+               // .requestMatchers("/h2-console/**").permitAll()
+
+                .and()
+                    .formLogin()
+                        .loginPage("/login")
+
+                .and()
+                .build();
+
+       /* http.authorizeHttpRequests(authz -> authz
+                .requestMatchers("/design", "/orders").hasRole("USER")
+                .requestMatchers("/", "/**").permitAll()
+                .anyRequest().authenticated()
+        );
+
+        return http.build();*/
+    }
+
+
+
 }

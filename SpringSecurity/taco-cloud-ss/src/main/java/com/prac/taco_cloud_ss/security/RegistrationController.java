@@ -1,7 +1,6 @@
-package com.prac.taco_cloud_ss.web;
+package com.prac.taco_cloud_ss.security;
 
 import com.prac.taco_cloud_ss.data.UserRepository;
-import com.prac.taco_cloud_ss.security.RegistrationForm;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
