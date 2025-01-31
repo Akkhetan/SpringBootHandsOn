@@ -2,7 +2,7 @@ package com.prac.taco_cloud_rest.webController;
 
 
 import com.prac.taco_cloud_rest.data.IngredientRepository;
-import com.prac.taco_cloud_rest.domain.Ingredient;
+import com.prac.taco_cloud_rest.entity.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

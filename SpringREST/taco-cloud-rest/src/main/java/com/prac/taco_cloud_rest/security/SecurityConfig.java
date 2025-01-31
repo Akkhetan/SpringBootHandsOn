@@ -1,7 +1,7 @@
 package com.prac.taco_cloud_rest.security;
 
 import com.prac.taco_cloud_rest.data.UserRepository;
-import com.prac.taco_cloud_rest.domain.User;
+import com.prac.taco_cloud_rest.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

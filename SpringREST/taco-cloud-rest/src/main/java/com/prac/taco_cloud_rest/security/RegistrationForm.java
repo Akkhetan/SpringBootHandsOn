@@ -1,6 +1,6 @@
 package com.prac.taco_cloud_rest.security;
 
-import com.prac.taco_cloud_rest.domain.User;
+import com.prac.taco_cloud_rest.entity.User;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

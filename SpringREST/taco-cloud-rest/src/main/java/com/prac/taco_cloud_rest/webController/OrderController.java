@@ -1,8 +1,8 @@
 package com.prac.taco_cloud_rest.webController;
 
 import com.prac.taco_cloud_rest.data.OrderRepository;
-import com.prac.taco_cloud_rest.domain.TacoOrder;
-import com.prac.taco_cloud_rest.domain.User;
+import com.prac.taco_cloud_rest.entity.TacoOrder;
+import com.prac.taco_cloud_rest.entity.User;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

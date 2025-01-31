@@ -2,9 +2,9 @@ package com.prac.taco_cloud_rest.webController;
 
 
 import com.prac.taco_cloud_rest.data.IngredientRepository;
-import com.prac.taco_cloud_rest.domain.Ingredient;
-import com.prac.taco_cloud_rest.domain.Taco;
-import com.prac.taco_cloud_rest.domain.TacoOrder;
+import com.prac.taco_cloud_rest.entity.Ingredient;
+import com.prac.taco_cloud_rest.entity.Taco;
+import com.prac.taco_cloud_rest.entity.TacoOrder;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

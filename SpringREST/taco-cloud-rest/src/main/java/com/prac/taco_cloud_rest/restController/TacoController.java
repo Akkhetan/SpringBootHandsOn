@@ -1,7 +1,7 @@
 package com.prac.taco_cloud_rest.restController;
 
 import com.prac.taco_cloud_rest.data.TacoRepository;
-import com.prac.taco_cloud_rest.domain.Taco;
+import com.prac.taco_cloud_rest.entity.Taco;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;

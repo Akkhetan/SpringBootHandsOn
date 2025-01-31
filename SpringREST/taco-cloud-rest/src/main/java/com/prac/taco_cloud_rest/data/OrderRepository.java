@@ -1,7 +1,7 @@
 package com.prac.taco_cloud_rest.data;
 
-import com.prac.taco_cloud_rest.domain.TacoOrder;
-import com.prac.taco_cloud_rest.domain.User;
+import com.prac.taco_cloud_rest.entity.TacoOrder;
+import com.prac.taco_cloud_rest.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 

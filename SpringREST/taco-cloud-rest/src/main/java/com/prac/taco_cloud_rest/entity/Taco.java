@@ -1,4 +1,4 @@
-package com.prac.taco_cloud_rest.domain;
+package com.prac.taco_cloud_rest.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
