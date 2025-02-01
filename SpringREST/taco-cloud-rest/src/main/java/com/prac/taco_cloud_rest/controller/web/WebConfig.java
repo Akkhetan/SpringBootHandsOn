@@ -1,4 +1,4 @@
-package com.prac.taco_cloud_rest.webController;
+package com.prac.taco_cloud_rest.controller.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

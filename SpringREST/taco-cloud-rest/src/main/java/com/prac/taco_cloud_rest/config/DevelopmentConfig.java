@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 
-@Profile("!prod")
+@Profile("!qa")
 @Configuration
 public class DevelopmentConfig {
 

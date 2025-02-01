@@ -1,4 +1,4 @@
-package com.prac.taco_cloud_rest.webController;
+package com.prac.taco_cloud_rest.controller.web;
 
 
 import com.prac.taco_cloud_rest.data.IngredientRepository;

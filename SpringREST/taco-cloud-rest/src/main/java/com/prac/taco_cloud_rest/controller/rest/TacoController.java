@@ -1,4 +1,4 @@
-package com.prac.taco_cloud_rest.restController;
+package com.prac.taco_cloud_rest.controller.rest;
 
 import com.prac.taco_cloud_rest.data.TacoRepository;
 import com.prac.taco_cloud_rest.entity.Taco;
