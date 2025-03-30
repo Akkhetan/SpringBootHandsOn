@@ -2,6 +2,7 @@ package com.prac.taco_cloud_rest.controller.web;
 
 
 import com.prac.taco_cloud_rest.data.IngredientRepository;
+import com.prac.taco_cloud_rest.data.TacoRepository;
 import com.prac.taco_cloud_rest.entity.Ingredient;
 import com.prac.taco_cloud_rest.entity.Taco;
 import com.prac.taco_cloud_rest.entity.TacoOrder;
@@ -23,11 +24,12 @@ import java.util.stream.StreamSupport;
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
+    private final TacoRepository tacoRepo;
 
     @Autowired
-    public DesignTacoController(
-            IngredientRepository ingredientRepo) {
+    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepo) {
         this.ingredientRepo = ingredientRepo;
+        this.tacoRepo = tacoRepo;
     }
 
 @ModelAttribute
@@ -56,17 +58,6 @@ public void addIngredientsToModel(Model model) {
     return "design";
   }
 
-/*
-  @PostMapping
-  public String processTaco(Taco taco,
-  			@ModelAttribute TacoOrder tacoOrder) {
-    tacoOrder.addTaco(taco);
-    log.info("Processing taco: {}", taco);
-
-    return "redirect:/orders/current";
-  }
- */
-
   @PostMapping
   public String processTaco(
 		  @Valid Taco taco, Errors errors,
@@ -76,6 +67,7 @@ public void addIngredientsToModel(Model model) {
       return "design";
     }
 
+      tacoRepo.save(taco);
     tacoOrder.addTaco(taco);
     log.info("Processing taco: {}", taco);
 

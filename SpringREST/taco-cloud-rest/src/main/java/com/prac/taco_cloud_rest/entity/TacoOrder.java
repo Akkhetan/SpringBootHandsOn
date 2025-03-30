@@ -20,7 +20,8 @@ public class TacoOrder implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "taco_order_seq")
+  @SequenceGenerator(name = "taco_order_seq", sequenceName = "taco_order_seq", allocationSize = 1)
   private Long id;
 
   private Date placedAt;
