@@ -1,0 +1,13 @@
+Taco Cloud is a place where you can order tacos online. But more than that, Taco Cloud wants to enable its customers to express their creative side
+and design custom tacos from a rich palette of ingredients.
+
+------------------------------------------------------------------------------------------------------------------------------------
+To apply validation in Spring MVC, you need to
+
+1.Add the Spring Validation starter to the build.
+2.Declare validation rules on the class that is to be validated: specifically, the Taco class.
+3.Specify that validation should be performed in the controller methods that require validation: specifically, the DesignTacoController’s processTaco()
+    method and the OrderController’s processOrder() method.
+4.Modify the form views to display validation errors.
+
+------------------------------------------------------------------------------------------------------------------------------------

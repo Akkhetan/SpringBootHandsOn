@@ -31,16 +31,6 @@ public class OrderController {
     return "orderForm";
   }
 
-/*
-  @PostMapping
-  public String processOrder(TacoOrder order,
-		  SessionStatus sessionStatus) {
-    log.info("Order submitted: {}", order);
-    sessionStatus.setComplete();
-
-    return "redirect:/";
-  }
-*/
 
   @PostMapping
   public String processOrder(@Valid TacoOrder order, Errors errors,
@@ -53,7 +43,8 @@ public class OrderController {
 
     orderRepo.save(order);
     log.info("Order submitted: {}", order);
-    sessionStatus.setComplete();
+    sessionStatus.setComplete(); /* The TacoOrder object was initially created and placed into the session when the user created their first taco.
+    By calling setComplete(), we are ensuring that the session is cleaned up and ready for a new order the next time the user creates a taco.*/
 
     return "redirect:/design";
   }
