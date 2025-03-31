@@ -2,75 +2,80 @@ package com.prac.taco_cloud_rest.security;
 
 import com.prac.taco_cloud_rest.data.UserRepository;
 import com.prac.taco_cloud_rest.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import java.util.List;
+
+@Slf4j
 @Configuration
 public class SecurityConfig   {
 
+    /*
+         # Used when creating new users and when authenticating users at login. In this case, we’re using BCryptPasswordEncoder,
+         one of a handful of password encoders provided by Spring
+        # No matter which password encoder you use, it’s important to understand that the password in the database is never decoded. Instead,
+        the password that the user enters at login is encoded using the same algorithm, and it’s then compared with the encoded password in the database.
+        That comparison is performed in the PasswordEncoder’s matches() method.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //Declaring users in an in-memory user details service bean
-  /* @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        List<UserDetails> usersList = new ArrayList<>();
-        usersList.add(new User(
-                "buzz", encoder.encode("password"),
-                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-        usersList.add(new User(
-                "woody", encoder.encode("password"),
-                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-        return new InMemoryUserDetailsManager(usersList);
-    }*/
-
+    //configure a user store for authentication purposes
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> {
             User user = userRepo.findByUsername(username);
-            if (user != null) return user;
+            if (user != null) {
+                log.info("User : {}", user);
+                List<String> list = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+                log.info(" Granted Authorities : {}, Length : {}", list, list.size());
+                return user;
+            }
 
             throw new UsernameNotFoundException("User '" + username + "' not found");
         };
     }
 
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.httpBasic(Customizer.withDefaults()); //Use HTTP Basic authentication approach
 
-        return http
 
-                .authorizeRequests()
-                .requestMatchers("/design", "/orders").access("hasRole('USER')")
-                .requestMatchers("/", "/**").access("permitAll()")
-               // .requestMatchers("/h2-console/**").permitAll()
+        // Authorization filter
+        http.authorizeHttpRequests(c -> c
+                        .requestMatchers("/design/**","/orders/**","/api/orders/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/tacos/**").hasRole("ADMIN")
+                        .requestMatchers("/api/tacos/**").authenticated()
+                        .anyRequest().permitAll());
 
-                .and()
-                    .formLogin()
-                        .loginPage("/login")
+        //custom login page
+        http.formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/design", true));
 
-                .and()
-                 .logout()
 
-                .and()
-                .build();
+        http.addFilterAfter(new AuthenticationLoggingFilter(), BasicAuthenticationFilter.class); //Added custom filter
 
-       /* http.authorizeHttpRequests(authz -> authz
-                .requestMatchers("/design", "/orders").hasRole("USER")
-                .requestMatchers("/", "/**").permitAll()
-                .anyRequest().authenticated()
+
+        http.csrf(c -> c.disable()  //Disables CSRF to enable a call to the /a path using the HTTP POST method
         );
+        //http.csrf(c -> c.ignoringRequestMatchers("/h2-console/**"));
 
-        return http.build();*/
+        return http.build();
     }
-
-
-
 }

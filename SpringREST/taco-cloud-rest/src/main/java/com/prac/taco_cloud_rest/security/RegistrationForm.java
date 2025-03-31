@@ -15,10 +15,12 @@ public class RegistrationForm {
   private String state;
   private String zip;
   private String phone;
+  private String authority;
   
   public User toUser(PasswordEncoder passwordEncoder) {
+    authority = "ROLE_USER";
     return new User(
-        username, passwordEncoder.encode(password), 
+        username, passwordEncoder.encode(password), authority,
         fullname, street, city, state, zip, phone);
   }
   

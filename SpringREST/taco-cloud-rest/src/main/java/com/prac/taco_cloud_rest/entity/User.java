@@ -9,8 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -27,18 +27,23 @@ public class User implements UserDetails {
   private Long id;
   
   private final String username;
-  
   private final String password;
+  private final String authority;
+
   private final String fullname;
   private final String street;
   private final String city;
   private final String state;
   private final String zip;
   private final String phoneNumber;
-  
+
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+
+    return Arrays.stream(Objects.requireNonNull(authority).split(","))
+            .map(role -> (GrantedAuthority) () -> role)
+            .collect(Collectors.toList());
   }
 
   @Override
@@ -60,5 +65,6 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
 
 }

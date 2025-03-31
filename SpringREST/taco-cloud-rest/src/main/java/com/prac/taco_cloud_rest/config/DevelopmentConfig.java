@@ -57,9 +57,17 @@ public class DevelopmentConfig {
       repo.save(salsa);
       repo.save(sourCream);
 
-      userRepo.save(new User("habuma", encoder.encode("password"),
-          "Craig Walls", "123 North Street", "Cross Roads", "TX",
+      userRepo.save(new User("ankit", encoder.encode("password"),
+          "ROLE_ADMIN", "Ankit Khetan","123 North Street", "Cross Roads", "TX",
           "76227", "123-123-1234"));
+
+      userRepo.save(new User("santosh", encoder.encode("password"),
+              "ROLE_USER,ROLE_ADMIN","Santosh Khetan", "123 North Street", "Cross Roads", "TX",
+              "76227", "123-123-1234"));
+
+      userRepo.save(new User("deepak", encoder.encode("password"),
+              "ROLE_USER","Deepak Khetan", "123 North Street", "Cross Roads", "TX",
+              "76227", "123-123-1234"));
 
       Taco taco1 = new Taco();
       taco1.setName("Carnivore");

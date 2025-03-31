@@ -11,3 +11,17 @@ To apply validation in Spring MVC, you need to
 4.Modify the form views to display validation errors.
 
 ------------------------------------------------------------------------------------------------------------------------------------
+
+Spring security :
+
+1.Provide a login page that is designed to match the website.
+2.rovide for multiple users, and enable a registration page so new Taco Cloud customers can sign up.
+3.Apply different security rules for different request paths. The home page and registration pages, for example, shouldn’t require authentication at all.
+
+Implemented :
+# PasswordEncoder
+# UserDetailsService
+# User Registration
+# Added custom filter to security filter chain
+# Authorization filter based on endpoint and user's role
+# custom login page
