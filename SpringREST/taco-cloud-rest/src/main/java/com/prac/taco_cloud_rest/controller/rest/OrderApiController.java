@@ -5,6 +5,8 @@ import com.prac.taco_cloud_rest.entity.TacoOrder;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,6 +24,9 @@ public class OrderApiController {
     this.orderRepo = orderRepo;
   }
 
+  /*@PostAuthorize("hasRole('ADMIN') || " +
+          "returnObject.user.username == authentication.name")
+          This is not working...need to check later*/
   @GetMapping(produces="application/json")
   public Iterable<TacoOrder> allOrders() {
     return orderRepo.findAll();

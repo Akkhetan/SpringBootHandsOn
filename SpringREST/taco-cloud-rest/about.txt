@@ -25,3 +25,5 @@ Implemented :
 # Added custom filter to security filter chain
 # Authorization filter based on endpoint and user's role
 # custom login page
+# disable csrf protection against particular end point matchers
+# Implemented method level authorization

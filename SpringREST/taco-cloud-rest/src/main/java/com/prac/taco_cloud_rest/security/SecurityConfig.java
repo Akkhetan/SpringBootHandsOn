@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig   {
 
     /*
@@ -68,13 +70,16 @@ public class SecurityConfig   {
                 .loginPage("/login")
                 .defaultSuccessUrl("/design", true));
 
+        http.logout( logout -> logout.logoutSuccessUrl("/login"));
+
 
         http.addFilterAfter(new AuthenticationLoggingFilter(), BasicAuthenticationFilter.class); //Added custom filter
 
 
-        http.csrf(c -> c.disable()  //Disables CSRF to enable a call to the /a path using the HTTP POST method
-        );
-        //http.csrf(c -> c.ignoringRequestMatchers("/h2-console/**"));
+        /*http.csrf(c -> c.disable()); */  //Disables CSRF to enable a call to the /a path using the HTTP POST method
+
+        // disable csrf protection against particular end point matchers
+        http.csrf(c -> c.ignoringRequestMatchers("/api/tacos/**"));
 
         return http.build();
     }
