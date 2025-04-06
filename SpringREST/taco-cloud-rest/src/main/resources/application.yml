@@ -5,7 +5,7 @@ spring:
     password: root
   jpa :
     hibernate :
-      ddl-auto: update
+      ddl-auto: create
 
 #logging:
 #  level:
@@ -16,3 +16,17 @@ spring:
 #          descriptor:
 #            sql:
 #              BasicBinder: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+          show-details: always
+
+info:
+  contact:
+    email: support@tacocloud.com
+    phone: 822-625-6831

@@ -27,3 +27,15 @@ Implemented :
 # custom login page
 # disable csrf protection against particular end point matchers
 # Implemented method level authorization
+
+------------------------------------------------------------------------------------------------------------------------------------
+Actuator :
+
+# enabled all the endpoints through application.yml
+# customised actuator end point :
+    - /info through  TacoCountInfoContributor.java
+    - also added build information to this endpoint.  This was done using BuildInfoContributor
+        To enable build information to be included in the results of the /info endpoint, add the build-info goal to the Spring Boot Maven Plugin executions,
+# Created custom endpoints - NotesEndpoint.java
+# Defined custom health indicators  - WackoHealthIndicator.java
+# secure actuator endpoint

@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 
-//@Profile("!prod")
+@Profile("!prod")
 @Configuration
 public class DevelopmentConfig {
 
@@ -70,7 +70,7 @@ public class DevelopmentConfig {
                 "76227", "123-123-1234"));
       }
 
-      if(userRepo.findByUsername("ankit") == null){
+      if(userRepo.findByUsername("deepak") == null){
         userRepo.save(new User("deepak", encoder.encode("password"),
                 "ROLE_USER","Deepak Khetan", "123 North Street", "Cross Roads", "TX",
                 "76227", "123-123-1234"));

@@ -63,6 +63,7 @@ public class SecurityConfig   {
                         .requestMatchers("/design/**","/orders/**","/api/orders/**").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/tacos/**").hasRole("ADMIN")
                         .requestMatchers("/api/tacos/**").authenticated()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
                         .anyRequest().permitAll());
 
         //custom login page
